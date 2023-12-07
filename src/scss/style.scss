@@ -1,0 +1,38 @@
+@import "reset";
+@import "mixins";
+@import "template";
+@import "fonts";
+@import "main";
+@import "search";
+@import "profile";
+@import "categories";
+@import "movie";
+
+html,
+body {
+	position: relative;
+	background: #171717;
+	overflow-x: hidden;
+
+	::-webkit-scrollbar {
+		width: 0;
+		-ms-overflow-style: none;
+		overflow: -moz-scrollbars-none;
+	}
+}
+
+.container-fluid {
+	padding: 0 35px !important;
+
+	@media (max-width: 992px) {
+		padding: 0 20px !important;
+	}
+
+	@media (max-width: 768px) {
+		padding: 0 15px !important;
+	}
+
+	@media (max-width: 530px) {
+		padding: 0 10.5px !important;
+	}
+}

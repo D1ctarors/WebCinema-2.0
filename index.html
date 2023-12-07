@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" href="..." type="image/x-icon">
+
+	<!-- FONTAWESOME -->
+	<script src="https://kit.fontawesome.com/18b8ecb5e9.js" crossorigin="anonymous"></script>
+
+	<!-- <script src="https://www.youtube.com/iframe_api"></script> -->
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css"
+		integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="/src/css/style.css">
+
+	<title>Главная</title>
+</head>
+
+<body>
+	<!-- Элементы бургера -->
+	<div class="offcanvas offcanvas-end offcanvas-top burger-content" tabindex="-1" id="offcanvasNavbar"
+		aria-labelledby="offcanvasNavbarLabel">
+		<div class="offcanvas-header offcanvas-end burger-content__header">
+			<h5></h5>
+			<!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button> -->
+		</div>
+		<div class="offcanvas-body burger-content__body">
+			<ul class="navbar-nav justify-content-end flex-grow-1">
+
+				{% if user.is_authenticated %}
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="{% url 'movies:profile' user.id %}">
+						<div class="burger-content__nickname-info">
+							<div class="burger-content__nickname">{{ user.username}}</div>
+							<div class="burger-content__profile-id">{{ user.email }}</div>
+						</div>
+						<div class="burger-content__image-profile">
+							{% if user.profile_picture %}
+							<img src="{{ user.profile_picture.url }}" alt="">
+							{% else %}
+							<img src="{% static '/vendor/img/default-profile.png' %}" alt="">
+							{% endif %}
+
+
+						</div>
+					</a>
+				</li>
+				{% for category in categories %}
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="{% url 'movies:json_filter' %}?category={{ category.id }}">
+						{{ category.name }}
+					</a>
+				</li>
+				{% endfor %}
+
+
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="#">Жанры</a>
+				</li>
+
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="{% url 'account_logout' %}">Выйти</a>
+				</li>
+
+				{% else %}
+				<li class="nav-item burger-content__item" style="display: flex" style="background-color: black">
+					<a class="nav-link" href="{% url 'account_login' %}"
+						style="width: 50%; display: flex; justify-content: center">
+						<div class="">Войти</div>
+					</a>
+					<a class="nav-link" href="{% url 'account_signup' %}"
+						style="width: 50%; display: flex; justify-content: center">
+						<div class="">Регистрация</div>
+					</a>
+				</li>
+				{% for category in categories %}
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="{% url 'movies:json_filter' %}?category={{ category.id }}">
+						{{ category.name }}
+					</a>
+				</li>
+				{% endfor %}
+				<li class="nav-item burger-content__item">
+					<a class="nav-link" href="#">Жанры</a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="wrapper">
+
+		<!--! header -->
+		<header class="header">
+			<nav class="navbar navbar-expand-lg">
+				<div class="container-fluid">
+
+					<!--! Лого -->
+					<a href="/" class="navbar__logo text-start">
+						<span>W</span>eb<span>C</span>inema
+					</a>
+					<!--! /Лого -->
+
+					<!--! Строка поиска -->
+					<div class="col-xl-6 col-lg-6 col-md-6 col-10">
+						<form action="#" method="GET" class="navbar__search" role="search">
+							<input class="form-control" type="text" name="q" placeholder="Фильмы и сериалы"
+								aria-label="Фильмы и сериалы">
+
+							<button class="btn" type="submit">
+								<img src="/src/vendor/img/search.svg" class="img-fluid" alt="seacrh">
+							</button>
+						</form>
+					</div>
+					<!--! /Строка поиска -->
+
+					<!--! Бургер -->
+					<button class="navbar__burger btn" type="button" data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+						<div class="line-1"></div>
+						<div class="line-2"></div>
+						<div class="line-3"></div>
+					</button>
+					<!--! /Бургер -->
+				</div>
+			</nav>
+		</header>
+		<!--! /header -->
+
+		<!--! main -->
+		<main class="main">
+
+			<!--! Топ 10 за месяц -->
+			<section class="main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<h4 class="">Топ 10 за месяц</h4>
+						</div>
+					</div>
+				</div>
+
+				<!--! Слайдер топ 10 за неделю -->
+				<div class="container">
+					<div class="swiper slider big-slider">
+						<div class="slider__wrapper swiper-wrapper">
+
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+							<!--! Фильм -->
+							<a href="#" class="slider__slide swiper-slide slide d-block">
+								<div class="slide__content ">
+									<div class="slide__header ">
+										<div class="slide__title">Шрек</div>
+										<div class="raitings">
+											<div class="raitings__kp">kp: 7.1</div>
+											<div class="raitings__imdb">imdb: 7.9</div>
+
+										</div>
+									</div>
+									<div class="slide__small">
+										<small class="slide__date">2008 год,</small>
+										<small class="slide__duration">79 мин,</small>
+
+										<small class="slide__age">+12</small>
+
+									</div>
+									<div class="slide__main">
+										<div class="slide__description">
+											<div class="truncate">
+												<p>Шрэк
+													8,2Shrek, мультфильм, 2001 18+
+													Жил да был в сказочном государстве большой зеленый великан по имени
+													Шрэк. Жил он в гордом одиночестве в лесу, на болоте,
+													которое считал своим. Но однажды злобный коротышка — лорд Фаркуад,
+													правитель волшебного королевства, безжалостно согнал
+													на Шрэково болото всех сказочных обитателей. И беспечной жизни
+													зеленого великана пришел конец. Но лорд Фаркуад пообещал
+													вернуть Шрэку болото, если великан добудет ему прекрасную принцессу
+													Фиону, которая томится в неприступной башне,
+													охраняемой огнедышащим драконом.</p>
+											</div>
+										</div>
+
+										<div class="slide__link">
+											<img src="/src/vendor/img/play-btn.svg" alt="">
+										</div>
+
+									</div>
+
+								</div>
+								<!-- {% if movie.poster_big == None %} -->
+								<!-- <img src="{% static '/vendor/img/default-film-big.png' %}" alt=""> -->
+								<!-- {% else %} -->
+								<img src="https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663139104_1-mykaleidoscope-ru-p-zloi-shrek-krasivo-1.jpg"
+									alt="">
+								<!-- {% endif %} -->
+
+							</a>
+							<!--!/ Фильм -->
+
+
+
+						</div>
+
+						<!--! Навигация слайдера -->
+						<div class="slider__swiper-button-next swiper-button-next"></div>
+						<div class="slider__swiper-button-prev swiper-button-prev"></div>
+						<!--! /Навигация слайдера -->
+
+					</div>
+				</div>
+				<!--! /Слайдер топ 10 за неделю -->
+
+			</section>
+			<!--! /Топ 10 за месяц -->
+
+			<!-- Новинки -->
+			<!-- <section class="main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between">
+							<h4>Новинки</h4>
+							<a href="" class="d-flex" style="width: 10%; justify-content: end;"><i
+									class="fa-solid fa-arrow-right fa-fade" style="color: #ffffff; font-size: 20px;"></i></a>
+						</div>
+					</div>
+					<div class="popular-films__row-main">
+						<div class="swiper movies-slider" style="overflow: visible;">
+							<div class="swiper-wrapper movies-slider__wrapper ">
+								{% for movie in now_in_cinema %}
+								<div class="col-2 mb-auto d-block swiper-slide" style="box-sizing: border-box;">
+									<a href="/movie/{{ movie.pk }}/" class="popular-films__item popular-film-slide">
+			
+										{% if movie.poster_big == None %}
+										<img src="{% static '/vendor/img/default-film-big.png' %}" alt="" class="w-100 img-fluid">
+										{% else %}
+										<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}" class="w-100 img-fluid">
+										{% endif %}
+			
+										<div class="popular-films__raitings raitings">
+											{% if movie.raitings_kp == None %}
+											<div class="raitings__kp" style="display: none"></div>
+											{% else %}
+											<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+											{% endif %}
+			
+											{% if movie.raitings_imdb == None %}
+											<div class="raitings__imdb" style="display: none"></div>
+											{% else %}
+											<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+											{% endif %}
+										</div>
+										<div class="popular-films__body">
+											<div class="popular-films__title-film">{{ movie.title }}</div>
+											<div class="popular-films__years-film">{{ movie.year }} г.</div>
+											<div class="popular-films__country-film">
+												{% for country in movie.countries.all %}
+												{{ country.name }}
+												{% endfor %}
+											</div>
+										</div>
+									</a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+			
+			
+					</div>
+			
+				</div>
+			</section> -->
+
+			<!-- Сейчас в кино -->
+			<section class="main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between">
+							<h4>Сейчас в кино</h4>
+							<a href="" class="d-flex" style="width: 10%; justify-content: end;"><i
+									class="fa-solid fa-arrow-right fa-fade"
+									style="color: #ffffff; font-size: 20px;"></i></a>
+						</div>
+					</div>
+					<div class="popular-films__row-main">
+						<div class="swiper movies-slider" style="overflow: visible;">
+							<div class="swiper-wrapper movies-slider__wrapper ">
+								{% for movie in now_in_cinema %}
+								<div class="col-2 mb-auto d-block swiper-slide" style="box-sizing: border-box;">
+									<a href="/movie/{{ movie.pk }}/" class="popular-films__item popular-film-slide">
+
+										{% if movie.poster_big == None %}
+										<img src="{% static '/vendor/img/default-film-big.png' %}" alt=""
+											class="w-100 img-fluid">
+										{% else %}
+										<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}"
+											class="w-100 img-fluid">
+										{% endif %}
+
+										<div class="popular-films__raitings raitings">
+											{% if movie.raitings_kp == None %}
+											<div class="raitings__kp" style="display: none"></div>
+											{% else %}
+											<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+											{% endif %}
+
+											{% if movie.raitings_imdb == None %}
+											<div class="raitings__imdb" style="display: none"></div>
+											{% else %}
+											<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+											{% endif %}
+										</div>
+										<div class="popular-films__body">
+											<div class="popular-films__title-film">{{ movie.title }}</div>
+											<div class="popular-films__years-film">{{ movie.year }} г.</div>
+											<div class="popular-films__country-film">
+												{% for country in movie.countries.all %}
+												{{ country.name }}
+												{% endfor %}
+											</div>
+										</div>
+									</a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</section>
+
+			<!-- Популярные -->
+			<section class="popular-films main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<h4 class="">Популярные сейчас</h4>
+						</div>
+					</div>
+					<div class="row g-xl-4 g-lg-4 g-md-4 g-sm-4 g-2 popular-films__row-main">
+
+
+						{% for movie in popular_movies %}
+						<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-auto d-block">
+							<a href="/movie/{{ movie.pk }}/" class="popular-films__item">
+
+								{% if movie.poster_big == None %}
+								<img src="{% static '/vendor/img/default-film-big.png' %}" alt=""
+									class="w-100 img-fluid">
+								{% else %}
+								<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}" class="w-100 img-fluid">
+								{% endif %}
+
+								<div class="popular-films__raitings raitings">
+									{% if movie.raitings_kp == None %}
+									<div class="raitings__kp" style="display: none"></div>
+									{% else %}
+									<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+									{% endif %}
+
+									{% if movie.raitings_imdb == None %}
+									<div class="raitings__imdb" style="display: none"></div>
+									{% else %}
+									<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+									{% endif %}
+								</div>
+								<div class="popular-films__body">
+									<div class="popular-films__title-film">{{ movie.title }}</div>
+									<div class="popular-films__years-film">{{ movie.year }} г.</div>
+									<div class="popular-films__country-film">
+										{% for country in movie.countries.all %}
+										{{ country.name }}
+										{% endfor %}
+									</div>
+								</div>
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+
+
+					<div class="row ">
+						<div class="col-12 d-flex justify-content-center mt-4">
+							<a href="{% url 'movies:json_filter' %}" class="btn-main">Ещё</a>
+						</div>
+					</div>
+
+
+				</div>
+			</section>
+
+			<!-- Жанры -->
+			<section class="genres main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<h4 class="">Жанры</h4>
+						</div>
+					</div>
+
+
+					<div class="genre">
+						<div class="swiper genres-slider">
+							<div class="swiper-wrapper genres-slider__wrapper ">
+								{% for genre in view.get_genres %}
+								<div class="swiper-slide d-block">
+									<a href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">{{ genre.name }}</a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Русские новинки -->
+			<section class="main-section">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between">
+							<h4>Русские новинки</h4>
+							<a href="{% url 'movies:json_filter' %}?category={{ 1 }}&year={{ 2023 }}" class="d-flex"
+								style="width: 10%; justify-content: end;"><i class="fa-solid fa-arrow-right fa-fade"
+									style="color: #ffffff; font-size: 20px;"></i></a>
+						</div>
+					</div>
+					<div class="popular-films__row-main">
+						<div class="swiper movies-slider" style="overflow: visible;">
+							<div class="swiper-wrapper movies-slider__wrapper ">
+								{% for movie in russian_new %}
+								<div class="col-2 mb-auto d-block swiper-slide" style="box-sizing: border-box;">
+									<a href="/movie/{{ movie.pk }}/" class="popular-films__item popular-film-slide">
+
+										{% if movie.poster_big == None %}
+										<img src="{% static '/vendor/img/default-film-big.png' %}" alt=""
+											class="w-100 img-fluid">
+										{% else %}
+										<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}"
+											class="w-100 img-fluid">
+										{% endif %}
+
+										<div class="popular-films__raitings raitings">
+											{% if movie.raitings_kp == None %}
+											<div class="raitings__kp" style="display: none"></div>
+											{% else %}
+											<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+											{% endif %}
+
+											{% if movie.raitings_imdb == None %}
+											<div class="raitings__imdb" style="display: none"></div>
+											{% else %}
+											<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+											{% endif %}
+										</div>
+										<div class="popular-films__body">
+											<div class="popular-films__title-film">{{ movie.title }}</div>
+											<div class="popular-films__years-film">{{ movie.year }} г.</div>
+											<div class="popular-films__country-film">
+												{% for country in movie.countries.all %}
+												{{ country.name }}
+												{% endfor %}
+											</div>
+										</div>
+									</a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</section>
+
+		</main>
+		<!--! /main -->
+
+		<!--! footer -->
+		<footer class="footer">
+			<div class="container">
+				<div class="row text-center">
+					<div class="col-12">
+						<div class="footer__social-link">
+							<a href="">1</a>
+							<a href="">2</a>
+							<a href="">3</a>
+							<a href="">4</a>
+						</div>
+						<ul class="footer__navigation-link">
+							<li><a href="">Главная</a></li>
+							<li><a href="">Реклама</a></li>
+							<li><a href="">О разработчиках</a></li>
+						</ul>
+						<h4>© 2023 <a href="/">WebCinema</a> designed by Mihailuch</h4>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!--! /footer -->
+
+	</div>
+
+
+	<!--! JQUERY -->
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	<!--! BOOTSTRAP -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+		crossorigin="anonymous"></script>
+
+	<!--! BOOTSTRAP - SELECT -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"
+		integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+	<!--! YOHOHO - ПЛЕЕР -->
+	<!--<script src="https://kinobd.ru/js/player_.js"></script>-->
+
+	<!--! СВАЙПЕР - СЛАЙДЕР -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<script src="/src/js/sliders.js"></script>
+
+	<!--! AJAX - ФИЛЬТР не рендерит-->
+	<!--<script src="/src/js/ajax-filter.js"></script>-->
+	<!--<script src="http://twitter.github.io/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>-->
+
+	<!--! SCRIPTS -->
+	<script src="/src/js/script.js"></script>
+</body>
+
+</html>

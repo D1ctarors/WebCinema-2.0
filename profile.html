@@ -1,0 +1,161 @@
+{% extends 'movies/template.html' %}
+{% load static %}
+
+{% block title %} Профиль {% endblock %}
+
+
+{% block content%}
+<section class="profile-section main-section">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="">Профиль</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xl-2 col-lg-3 col-md-3 col-sm-4">
+				<div class="profile-section__photo">
+
+					<!--					<form method="POST" enctype="multipart/form-data">-->
+					<!--						{% csrf_token %}-->
+					<!--						{{ form.as_p }}-->
+
+					{% if user.profile_picture %}
+					<input class="form-control" type="image" id="form-profile-photo"
+						   src="{{ user.profile_picture.url }}">
+					{% else %}
+					<input class="form-control" type="image" id="form-profile-photo" src="{% static '/vendor/img/default-profile.png' %}">
+					{% endif %}
+
+					<!--						<button type="submit">Загрузить</button>-->
+					<!--					</form>-->
+				</div>
+
+			</div>
+			<div class="col-xl-10 col-lg-9 col-md-9 col-sm-8">
+				<div class="row">
+					<div class="burger__nickname-info">
+						<div class="burger__nickname">{{ user.username }}</div>
+						<div class="burger__profile-id">{{ user.email }}</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Логин</label>
+						<form
+								class="form-floating input-group profile-section__form-login form-profile-main">
+							<input type="text" class="form-control" id="profilename"
+								   placeholder="{{ user.username }}" value="{{ user.username }}" readonly>
+							<button class="" type="button">
+								<img src="{% static '/vendor/img/pencil.svg' %}"
+									 alt=""></button>
+						</form>
+					</div>
+
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Имя</label>
+						<form
+								class="form-floating input-group profile-section__form-login form-profile-main">
+							<input type="text" class="form-control" id="first_name"
+								   placeholder="{{ user.first_name }}" value="{{ user.first_name }}" readonly>
+							<button class="" type="button">
+								<img src="{% static '/vendor/img/pencil.svg' %}"
+									 alt=""></button>
+						</form>
+					</div>
+
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Электронная почта</label>
+						<form
+								class="form-floating input-group profile-section__form-login form-profile-main">
+							<input type="email" class="form-control" id="floatingInputValue"
+								   placeholder="{{ user.email }}" value="{{ user.email }}"
+								   readonly>
+							<button class="" type="button" id=""><img src="{% static '/vendor/img/pencil.svg' %}"
+																	  alt=""></button>
+						</form>
+					</div>
+
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Пароль</label>
+						<form
+								class="form-floating input-group profile-section__form-login form-profile-main">
+							<input type="password" class="form-control"
+								   placeholder="{{ user.password }}" value="{{ user.password }}" readonly>
+							<button class="" type="button" ><img src="{% static '/vendor/img/pencil.svg' %}"
+																 alt=""></button>
+						</form>
+					</div>
+
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Фамилия</label>
+						<form class="form-floating input-group profile-section__form-login form-profile-main class-last_name">
+							<input type="text" class="form-control input-last_name"
+								   placeholder="{{ user.last_name }}" value="{{ user.last_name }}" readonly>
+							<button class="redactor" type="button"><img src="{% static '/vendor/img/pencil.svg' %}" alt=""></button>
+						</form>
+					</div>
+
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 mt-3">
+						<label class="form-label">Социальные сети</label>
+						<ul class="profile-section__social">
+							<li><a href=""><img src="{% static '/vendor/img/social/vk.svg' %}" alt=""></a></li>
+							<li><a href=""><img src="{% static '/vendor/img/social/yandex.svg' %}" alt=""></a></li>
+							<li><a href=""><img src="{% static '/vendor/img/social/google.svg' %}" alt=""></a></li>
+						</ul>
+					</div>
+
+
+				</div>
+				<div class="row">
+					<div class="col-2">
+						<button type="button" class="btn btn-primary btn-sm save">Сохранить</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+
+<!--<section class="history-section main-section">-->
+<!--	<div class="container-fluid">-->
+<!--		<div class="row">-->
+<!--			<div class="col-12">-->
+<!--				<h4 class="">История</h4>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="row">-->
+<!--			<div class="col-12">-->
+<!--				<h3 class="">7 февраля 2023 года</h3>-->
+<!--			</div>-->
+
+<!--			<div class="similar-wrap">-->
+<!--				<div class="swiper history-slider">-->
+<!--					<div class="swiper-wrapper history__wrapper">-->
+<!--						<div class="swiper-slide col-xl-4">-->
+<!--							<a href="#" class="history__item history-item">-->
+<!--								<img src="./img/mira-film.png" class="w-100 img-fluid" alt="">-->
+<!--								<div class="history-item__info">-->
+<!--									<div class="history-item__top">-->
+<!--										<div class="history-item__title">Мира</div>-->
+<!--										<div class="history-item__time">1ч. 2 мин.</div>-->
+<!--									</div>-->
+<!--									<div class="history-item__progress">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--									</div>-->
+
+<!--								</div>-->
+<!--							</a>-->
+<!--						</div>-->
+
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+
+{% endblock %}

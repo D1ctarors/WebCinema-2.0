@@ -1,0 +1,228 @@
+{% extends 'movies/template.html' %}
+{% load static %}
+{% block title %} {{ movie.title }} {% endblock %}
+
+{% block content %}
+<section class="full-screen full-screen-film">
+	<!--    <video autoplay muted loop poster="{{ movie.poster_big }}" playsinline="playsinline" webkit-playsinline="webkit-playsinline" preload="auto" src="{{ movie.trailer }}" type="video/mp4">-->
+	<!--  </video>-->
+
+	<div id="videoContainer">
+
+		<img id="player-poster" src="{{ movie.poster_big }}" alt="Poster">
+		<div id="player" class="player"></div>
+		<div id="controls" class="controls">
+			<button id="unmuteButton" class="control-button">Размут</button>
+			<button id="pauseButton" class="control-button">Пауза</button>
+			<!--            <button id="scaleButton" class="control-button">Scale</button>-->
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div class="container-lg full-screen__content">
+		<!-- Название фильма -->
+		<div class="row mb-4">
+			<div class="col-8 full-screen__film-name">{{ movie.title }}</div>
+		</div>
+
+		<!-- Рейтинги, год, время, возраст -->
+		<div class="row mb-4">
+			<div class="col-xl-4 full-screen__film-info">
+				<div class="raitings full-screen__raitings">
+					{% if movie.raitings_kp == None %}
+					<div class="raitings__kp" style="display: none"></div>
+					{% else %}
+					<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+					{% endif %}
+
+					{% if movie.raitings_imdb == None %}
+					<div class="raitings__imdb" style="display: none"></div>
+					{% else %}
+					<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+					{% endif %}
+				</div>
+
+				<div class="full-screen__overviewMeta-description ">
+
+					<div>{{ movie.year }} г.,</div>
+
+					<div>{{ movie.time }} мин.,</div>
+
+					{% if movie.age_restriction %}
+					<small class="slide__age">+{{ movie.age_restriction }}</small>
+					{% endif %}
+				</div>
+			</div>
+
+
+		</div>
+
+		<!-- Краткое описание -->
+		<div class="row mb-5">
+			<div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 full-screen__short-description">
+				<div></div>
+			</div>
+		</div>
+
+		<!-- Кнопка -->
+		<div class="row">
+			<div class="col-xl-3">
+				<button class="btn btn-main full-screen__btn" data-bs-toggle="modal"
+					data-bs-target="#showVideo">Смотреть
+				</button>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<section class="film-details">
+	<div class="container-lg">
+		<div class="row">
+			<div class="genres__top mb-2">
+				<h5>Детали</h5>
+			</div>
+		</div>
+		<!-- Актёрский состав -->
+		<div class="row">
+			<h5 class="film-details__title">Актёры:</h5>
+			<div class="col-12 film-details__line">
+				<ul>
+					{% for actor in movie.actors.all %}
+					<li>{{ actor }}</li>
+					{% endfor %} и другие...
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- Режисёр -->
+		<div class="row">
+			<h5 class="film-details__title">Режисёр:</h5>
+			<div class="col-12 film-details__line">
+				<ul>
+					{% for director in movie.directors.all %}
+					<li>{{ director }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- Страна -->
+		<div class="row">
+			<h5 class="film-details__title">Страна:</h5>
+			<div class="col-12 film-details__line">
+				<ul>
+					{% for country in movie.countries.all %}
+					<li>{{ country.name }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- Жанры -->
+		<div class="row">
+			<h5 class="film-details__title">Жанры:</h5>
+			<div class="col-12 film-details__line">
+				<ul>
+					{% for genre in movie.genres.all %}
+					<li><a href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">{{ genre }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<section class="film-details film-full-description">
+	<div class="container-lg">
+		<div class="row">
+			<div class="genres__top mb-2">
+				<h5>Описание</h5>
+			</div>
+		</div>
+		<div class="row">
+			<p>
+				{{ movie.description }}
+			</p>
+
+		</div>
+	</div>
+</section>
+
+<section class="genres main-section similar-to">
+	<div class="container-lg">
+
+		<div class="row">
+			<div class="col-12">
+				<h4 class="">Похожие:</h4>
+			</div>
+		</div>
+
+		<div class="similar-wrap">
+			<div class="swiper genres-slider">
+				<div class="swiper-wrapper genres-slider__wrapper ">
+
+					{% for movie in movies %}
+					<div class="swiper-slide col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-auto d-block">
+						<a href="/movie/{{ movie.pk }}/" class="popular-films__item">
+
+							{% if movie.poster_big == None %}
+							<img src="{% static '/vendor/img/default-film-big.png' %}" alt="" class="w-100 img-fluid">
+							{% else %}
+							<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}" class="w-100 img-fluid">
+							{% endif %}
+
+							<div class="popular-films__raitings raitings">
+								{% if movie.raitings_kp == None %}
+								<div class="raitings__kp" style="display: none"></div>
+								{% else %}
+								<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
+								{% endif %}
+
+								{% if movie.raitings_imdb == None %}
+								<div class="raitings__imdb" style="display: none"></div>
+								{% else %}
+								<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
+								{% endif %}
+							</div>
+							<div class="popular-films__body">
+								<div class="popular-films__title-film">{{ movie.title }}</div>
+								<div class="popular-films__years-film">{{ movie.year }}</div>
+								<div class="popular-films__country-film">{{ movie.country }}</div>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal fade modal-film" id="showVideo" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-fullscreen-sm-down modal-dialog-centered">
+		<div class="modal-content modal-film__content">
+			<div class="modal-body modal-body-film">
+				<div data-kinopoisk="{{ movie.kinopoisk_id }}" id="kinobd"></div>
+				<!--                <div id="yohoho" data-kinopoisk="{{ movie.kinopoisk_id }}"></div>-->
+				<button type="button" class="btn-close modal-body-film__close" data-bs-dismiss="modal"
+					aria-label="Закрыть"></button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<!-- LOAD YOUTUBE -->
+<script src="/static/js/youtube-trailer-custom.js" data-video-url="{{ movie.trailer }}"></script>
+{% endblock %}

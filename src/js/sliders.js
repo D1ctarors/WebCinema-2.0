@@ -91,24 +91,24 @@ function initBigSlider() {
 //     });
 // }
 
-// function initSlidersMovies() {
-//   if (document.querySelector(".movies-slider"))
-//     new Swiper(".movies-slider", {
-//       slidesPerView: 6,
-//       // freeMode: true,
-//       spaceBetween: 20,
+function initMoviesSliders() {
+  if (document.querySelector(".slider"))
+    new Swiper(".slider", {
+      slidesPerView: 6,
+      // freeMode: true,
+      spaceBetween: 20,
 
-//       preloadImages: true,
-//       // watchOverflow: true,
-//       navigation: {
-//         // nextEl: ".genres-slider__btn-next",
-//         // prevEl: ".genres-slider__btn-prev",
-//       },
-//     });
-// }
+      preloadImages: true,
+      // watchOverflow: true,
+      navigation: {
+        // nextEl: ".genres-slider__btn-next",
+        // prevEl: ".genres-slider__btn-prev",
+      },
+    });
+}
 
 window.addEventListener("load", function (e) {
   initBigSlider();
   //   initSlidersGenres();
-  //   initSlidersMovies();
+  initMoviesSliders();
 });

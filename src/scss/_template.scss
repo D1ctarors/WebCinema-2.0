@@ -311,7 +311,7 @@ main {
 
 	h4 {
 		text-transform: uppercase;
-		font-size: 25px;
+		font-size: 40px;
 		font-weight: 400;
 		line-height: normal;
 		letter-spacing: 2.5px;
@@ -336,137 +336,6 @@ main {
 
 }
 
-
-
-//! ХЗ
-.control-button {
-	opacity: 1;
-	transition: opacity 0.5s ease;
-}
-
-.truncate p {
-	margin: 0;
-	overflow: hidden;
-
-	@media (max-width: 530px) {
-		-webkit-line-clamp: 5;
-	}
-}
-
-swiper-container {
-	width: 100%;
-	height: 100%;
-}
-
-.btn-main {
-	z-index: 2;
-	font-weight: 600;
-	font-size: 16px;
-	line-height: 2.5;
-	letter-spacing: 0.05em;
-	background-color: rgba(71, 156, 255, 0.42);
-	color: #ffffff;
-	padding: 0 40px;
-	border: none;
-	border-radius: 5px;
-	-webkit-transition: all 0.15s ease;
-	-o-transition: all 0.15s ease;
-	transition: all 0.15s ease;
-
-	&:hover {
-		color: #ffffff;
-		background-color: #479CFF;
-	}
-
-	&:active {
-		background-color: rgba(71, 156, 255, 0.42);
-		color: #ffffff;
-	}
-}
-
-//! ХЗ
-
-
-
-
-// блоки
-
-
-
-
-
-
-.raitings {
-
-	&__kp {}
-
-	&__imdb {}
-}
-
-.truncate {}
-
-.popular-films {
-
-	&__row-main {}
-
-	&__item {}
-
-	&__raitings {}
-
-	&__body {}
-
-	&__title-film {}
-
-	&__years-film {}
-
-	&__country-film {}
-}
-
-.movies-slider {
-
-	&__wrapper {}
-}
-
-.popular-film-slide {}
-
-
-.btn-main {}
-
-.genres {}
-
-.genre {}
-
-.genres-slider {
-
-	&__wrapper {}
-}
-
-.footer {
-
-	&__social-link {}
-
-	&__navigation-link {}
-}
-
-// блоки
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .slider {
 	// overflow: visible !important;
 
@@ -474,8 +343,91 @@ swiper-container {
 
 	.slide {
 		transition: all 0.3 ease 0s;
+		display: block;
+		text-decoration: none;
+		overflow: hidden;
+		border-radius: 15px;
+		position: relative;
+		padding-bottom: 23%;
+		transition: all 0.15s ease;
+		box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+
+		img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&__content {
+			text-transform: capitalize;
+			border-radius: 15px;
+			transition: all 0.15s ease;
+			opacity: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 2;
+			text-align: center;
+			font-weight: 500;
+			line-height: 1.1;
+			padding: 10px 22px;
+			color: #ffffff;
+			width: 105%;
+			height: 105%;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			letter-spacing: 0.085em;
+			gap: 3px;
+
+			@media (max-width: 530px) {
+				padding: 2px 2px;
+			}
+
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					opacity: 1;
+					background: rgba(0, 0, 0, 0.65);
+				}
+			}
+
+
+		}
+
+		&__header {}
+
+		&__title {
+			font-size: 22px;
+		}
+
+		&__small {}
+
+		&__date {}
+
+		&__duration {}
+
+		&__age {}
+
+		&__main {}
+
+		&__description {}
+
+		&__link {}
+
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				transform: translate(0, -5px);
+			}
+		}
 
 		.raitings {
+			position: absolute;
+			top: 15px;
+			left: 15px;
 			z-index: 5;
 
 			transition: all 0.3s ease;
@@ -492,8 +444,6 @@ swiper-container {
 			&__kp,
 			&__imdb {
 				display: flex;
-				-webkit-box-align: center;
-				-ms-flex-align: center;
 				align-items: center;
 				gap: 2px;
 				padding: 0 10px;
@@ -513,6 +463,31 @@ swiper-container {
 			&__imdb {
 				background-color: rgba(240, 188, 0, 0.8470588235);
 			}
+
+			@media (max-width: 992px) {
+				font-size: 14px;
+				top: 10px;
+				left: 10px;
+
+				&__kp,
+				&__imdb {
+					display: flex;
+					align-items: center;
+					gap: 2px;
+					padding: 0 5px;
+				}
+			}
+
+			@media (max-width: 768px) {
+				top: 10px;
+				left: 10px;
+			}
+
+			@media (max-width: 530px) {
+				font-size: 12px;
+				top: 7px;
+				left: 7px;
+			}
 		}
 	}
 
@@ -526,35 +501,35 @@ swiper-container {
 		&__wrapper {}
 
 		.slide {
-			text-decoration: none;
-			overflow: hidden;
-			border-radius: 35px;
-			position: relative;
-			padding: 50px;
-			transition: all 0.15s ease;
-			box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+			text-decoration: none !important;
+			overflow: hidden !important;
+			border-radius: 35px !important;
+			position: relative !important;
+			padding: 50px !important;
+			transition: all 0.15s ease !important;
+			box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3) !important;
 
 			img {
-				position: absolute;
-				top: 0;
-				left: 0;
-				z-index: -1;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
+				position: absolute !important;
+				top: 0 !important;
+				left: 0 !important;
+				z-index: -1 !important;
+				width: 100% !important;
+				height: 100% !important;
+				object-fit: cover !important;
 			}
 
 			&::after {
-				content: "";
-				transition: all 0.5s ease 0s;
-				position: absolute;
-				opacity: 0;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-				background: rgba(0, 0, 0, 0.45);
+				content: "" !important;
+				transition: all 0.5s ease 0s !important;
+				position: absolute !important;
+				opacity: 0 !important;
+				top: 0 !important;
+				left: 0 !important;
+				width: 100% !important;
+				height: 100% !important;
+				z-index: -1 !important;
+				background: rgba(0, 0, 0, 0.45) !important;
 			}
 
 			@media (max-width: 992px) {
@@ -600,15 +575,43 @@ swiper-container {
 			}
 
 			&__content {
-				min-height: 450px;
-				transition: all 0.8s ease 0s;
-				transform: translate(0px, 21%);
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-end;
+				min-height: 550px !important;
+				transition: all 0.8s ease 0s !important;
+				transform: translate(0px, 21%) !important;
+				display: flex !important;
+				flex-direction: column !important;
+				align-items: stretch !important;
+				justify-content: flex-end !important;
+				text-transform: capitalize !important;
+
+				border-radius: 15px;
+				opacity: 1 !important;
+				position: relative !important;
+				top: auto !important;
+				left: auto !important;
+				bottom: auto !important;
+				right: auto !important;
+
+				z-index: 2 !important;
+				text-align: start !important;
+				font-weight: 500 !important;
+				line-height: 1.1 !important;
+				padding: 0 !important;
+				color: #ffffff !important;
+				width: auto !important;
+				height: auto !important;
+				letter-spacing: 0.085em !important;
+				gap: 3px !important;
 
 				@media (max-width: 530px) {
 					transform: translate(0px, 40%);
+				}
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						opacity: 1;
+						background: none;
+					}
 				}
 			}
 
@@ -688,6 +691,18 @@ swiper-container {
 				}
 			}
 
+			.raitings {
+				position: relative !important;
+				top: 0 !important;
+				left: 0 !important;
+			}
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					transform: translate(0, 0);
+				}
+			}
+
 			// .raitings{}
 
 			//! не работает
@@ -705,8 +720,8 @@ swiper-container {
 				}
 
 				&::after {
-					transition: all 0.3s ease 0s;
-					opacity: 1;
+					transition: all 0.3s ease 0s !important;
+					opacity: 1 !important;
 				}
 			}
 
@@ -734,6 +749,14 @@ swiper-container {
 
 			&:hover {
 				color: #479CFF !important;
+			}
+
+			@media (max-width: 992px) {
+				display: none;
+				visibility: hidden;
+				opacity: 0;
+				z-index: -2;
+
 			}
 		}
 
@@ -763,6 +786,92 @@ swiper-container {
 
 
 
+
+
+//! ХЗ
+.control-button {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+}
+
+.truncate p {
+	margin: 0;
+	overflow: hidden;
+
+	@media (max-width: 530px) {
+		-webkit-line-clamp: 5;
+	}
+}
+
+swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+.btn-main {
+	z-index: 2;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 2.5;
+	letter-spacing: 0.05em;
+	background-color: rgba(71, 156, 255, 0.42);
+	color: #ffffff;
+	padding: 0 40px;
+	border: none;
+	border-radius: 5px;
+	-webkit-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	transition: all 0.15s ease;
+
+	&:hover {
+		color: #ffffff;
+		background-color: #479CFF;
+	}
+
+	&:active {
+		background-color: rgba(71, 156, 255, 0.42);
+		color: #ffffff;
+	}
+}
+
+//! ХЗ
+
+
+
+
+// блоки
+
+
+.genres {}
+
+.genre {}
+
+.genres-slider {
+
+	&__wrapper {}
+}
+
+.footer {
+
+	&__social-link {}
+
+	&__navigation-link {}
+}
+
+// блоки
+
+
+
+
+
+
+
+
+
+
+
+
+
 // .swiper-pagination-horizontal {
 // 	bottom: -30px !important;
 // }
@@ -778,174 +887,19 @@ swiper-container {
 // 	border-radius: 14px;
 // }
 
-
-.big-slider__swiper-button-prev {}
-
-.big-slider__swiper-button-next {}
-
-@media (max-width: 992px) {
-
-	.big-slider__swiper-button-next,
-	.big-slider__swiper-button-prev {
-		display: none;
-		visibility: hidden;
-		opacity: 0;
-		z-index: -2;
-	}
-}
+// .popular-films__time {
+// 	display: block;
+// 	-webkit-box-flex: 1;
+// 	-ms-flex: 1 1 auto;
+// 	flex: 1 1 auto;
+// }
 
 
 
-@media (max-width: 992px) {
-	.raitings {
-		font-size: 14px;
-	}
-
-	.raitings__kp,
-	.raitings__imdb {
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		align-items: center;
-		gap: 2px;
-		padding: 0 5px;
-	}
-}
-
-@media (max-width: 530px) {
-	.raitings {
-		font-size: 12px;
-	}
-}
-
-.popular-films__item {
-	display: block;
-	text-decoration: none;
-	overflow: hidden;
-	border-radius: 15px;
-	position: relative;
-	padding-bottom: 130%;
-	-webkit-transition: all 0.15s ease;
-	-o-transition: all 0.15s ease;
-	transition: all 0.15s ease;
-	box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-
-	img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-
-		object-fit: cover;
-	}
-}
-
-.popular-film-slide {
-	// padding-bottom: 55% !important;
-
-	img {}
-}
-
-@media (hover: hover) and (pointer: fine) {
-	.popular-films__item:hover {
-		-webkit-transform: translate(0, -5px);
-		-ms-transform: translate(0, -5px);
-		transform: translate(0, -5px);
-
-		.popular-films__body {
-			opacity: 1;
-			background: rgba(0, 0, 0, 0.65);
-		}
-	}
-}
-
-.popular-films__raitings {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-}
-
-@media (max-width: 992px) {
-	.popular-films__raitings {
-		top: 10px;
-		left: 10px;
-	}
-}
-
-@media (max-width: 768px) {
-	.popular-films__raitings {
-		top: 10px;
-		left: 10px;
-	}
-}
-
-@media (max-width: 530px) {
-	.popular-films__raitings {
-		top: 7px;
-		left: 7px;
-	}
-}
-
-.popular-films__body {
-	text-transform: capitalize;
-	border-radius: 15px;
-	-webkit-transition: all 0.15s ease;
-	-o-transition: all 0.15s ease;
-	transition: all 0.15s ease;
-	opacity: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	z-index: 2;
-	text-align: center;
-	font-weight: 500;
-	line-height: 1.1;
-	padding: 10px 22px;
-	color: #ffffff;
-	width: 100%;
-	height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	letter-spacing: 0.085em;
-	gap: 3px;
-}
-
-@media (max-width: 530px) {
-	.popular-films__body {
-		padding: 2px 2px;
-	}
-}
-
-.popular-films__time {
-	display: block;
-	-webkit-box-flex: 1;
-	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
-}
-
-.popular-films__title-film {
-	font-size: 22px;
-}
-
-.popular-films__years-film,
-.popular-films__country-film {
-	font-size: 16px;
-}
+// .popular-films__years-film,
+// .popular-films__country-film {
+// 	font-size: 16px;
+// }
 
 .genres {
 	margin-bottom: 0;

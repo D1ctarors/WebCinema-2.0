@@ -29,19 +29,19 @@
 </head>
 
 <body>
-	<!-- Элементы бургера -->
-	<div class="offcanvas offcanvas-end offcanvas-top burger-content" tabindex="-1" id="offcanvasNavbar"
+	<!--! Элементы бургера -->
+	<!--<div class="offcanvas offcanvas-end offcanvas-top burger-content" tabindex="-1" id="offcanvasNavbar"
 		aria-labelledby="offcanvasNavbarLabel">
 		<div class="offcanvas-header offcanvas-end burger-content__header">
 			<h5></h5>
-			<!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button> -->
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 		</div>
 		<div class="offcanvas-body burger-content__body">
 			<ul class="navbar-nav justify-content-end flex-grow-1">
 
 				{% if user.is_authenticated %}
 				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="{% url 'movies:profile' user.id %}">
+					<a class="nav-link" href="/profile.html">
 						<div class="burger-content__nickname-info">
 							<div class="burger-content__nickname">{{ user.username}}</div>
 							<div class="burger-content__profile-id">{{ user.email }}</div>
@@ -98,7 +98,9 @@
 				{% endif %}
 			</ul>
 		</div>
-	</div>
+	</div> -->
+
+
 
 
 	<div class="wrapper">
@@ -128,12 +130,75 @@
 					<!--! /Строка поиска -->
 
 					<!--! Бургер -->
-					<button class="navbar__burger btn" type="button" data-bs-toggle="offcanvas"
-						data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-						<div class="line-1"></div>
-						<div class="line-2"></div>
-						<div class="line-3"></div>
-					</button>
+					<div class="navbar__burger-menu-wrapper">
+						<button class="navbar__burger-menu" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+
+						<div class="burger-content">
+							<div class="burger-content__block">
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__profileInfo">
+											<div class="burger-content-item__nickname">Михайлушкин Дмитрий</div>
+											<div class="burger-content-item__profile-id">#9122003</div>
+										</div>
+										<div class="burger-content-item__img">
+											<img src="/src/vendor/img/monkey.jpg" alt="">
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="burger-content__block">
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__link">
+											Главная
+										</div>
+									</div>
+								</a>
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__link">
+											Каталог
+										</div>
+									</div>
+								</a>
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__link">
+											Спорт
+										</div>
+									</div>
+								</a>
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__link">
+											ТВ каналы
+										</div>
+									</div>
+								</a>
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<div class="burger-content-item__link">
+											Смотреть позже
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="burger-content__block">
+								<a href="#" class="burger-content__item burger-content-item">
+									<div>
+										<btn class="burger-content-item__logout">
+											Выйти
+										</btn>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
 					<!--! /Бургер -->
 				</div>
 			</nav>
@@ -583,7 +648,7 @@
 			</section>
 			<!--! /Топ 10 за месяц -->
 
-			<!-- Сейчас в кино -->
+			<!--! Сейчас в кино -->
 			<section id="inCinema" class="main-section">
 				<div class="container-fluid">
 
@@ -761,92 +826,226 @@
 				</div>
 			</section>
 
-			<!-- Популярные -->
-			<section id="popular" class="main-section">
+			<!--! Популярные -->
+			<section id="popular" class="main-section popular">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
-							<h4 class="">Популярные сейчас</h4>
+							<h4 class="">Популярные</h4>
 						</div>
 					</div>
-					<div class="row g-xl-4 g-lg-4 g-md-4 g-sm-4 g-2 popular-films__row-main">
+					<div class="popular__wrapper">
 
-
-						{% for movie in popular_movies %}
-						<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-auto d-block">
-							<a href="/movie/{{ movie.pk }}/" class="popular-films__item">
-
-								{% if movie.poster_big == None %}
-								<img src="{% static '/vendor/img/default-film-big.png' %}" alt=""
-									class="w-100 img-fluid">
-								{% else %}
-								<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}" class="w-100 img-fluid">
-								{% endif %}
-
-								<div class="popular-films__raitings raitings">
-									{% if movie.raitings_kp == None %}
-									<div class="raitings__kp" style="display: none"></div>
-									{% else %}
-									<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
-									{% endif %}
-
-									{% if movie.raitings_imdb == None %}
-									<div class="raitings__imdb" style="display: none"></div>
-									{% else %}
-									<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
-									{% endif %}
-								</div>
-								<div class="popular-films__body">
-									<div class="popular-films__title-film">{{ movie.title }}</div>
-									<div class="popular-films__years-film">{{ movie.year }} г.</div>
-									<div class="popular-films__country-film">
-										{% for country in movie.countries.all %}
-										{{ country.name }}
-										{% endfor %}
+						<!-- <div class="swiper slider" style="overflow: visible;">
+							<div class="slider__wrapper swiper-wrapper"> -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
 									</div>
 								</div>
-							</a>
-						</div>
-						{% endfor %}
-					</div>
-
-
-					<div class="row ">
-						<div class="col-12 d-flex justify-content-center mt-4">
-							<a href="{% url 'movies:json_filter' %}" class="btn-main">Ещё</a>
-						</div>
-					</div>
-
-
-				</div>
-			</section>
-
-			<!-- Жанры -->
-			<section id="genres" class="genres main-section">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-							<h4 class="">Жанры</h4>
-						</div>
-					</div>
-
-
-					<div class="genre">
-						<div class="swiper genres-slider">
-							<div class="swiper-wrapper genres-slider__wrapper ">
-								{% for genre in view.get_genres %}
-								<div class="swiper-slide d-block">
-									<a href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">{{ genre.name }}</a>
-								</div>
-								{% endfor %}
 							</div>
-						</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+						<!--! Фильм -->
+						<a href="#" class="slide d-block mb-auto">
+							<div class="slide__content ">
+								<div class="slide__header ">
+									<div class="slide__title">Шрек</div>
+									<div class="raitings">
+										<div class="raitings__kp">kp: 7.1</div>
+										<div class="raitings__imdb">imdb: 7.9</div>
+									</div>
+								</div>
+							</div>
+							<img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/ef98d170-1128-4057-895a-f3cbaf2cf775/1920x"
+								alt="">
+						</a>
+						<!--!/ Фильм -->
+
+
+
+
+						<!--</div> -->
 					</div>
 				</div>
-			</section>
 
-			<!-- Русские новинки -->
-			<!-- <section class="main-section">
+
+				<div class="row ">
+					<div class="col-12 d-flex justify-content-center mt-4">
+						<a href="{% url 'movies:json_filter' %}" class="btn-main">Ещё</a>
+					</div>
+				</div>
+
+			</section>
+	</div>
+
+
+	<!--! Жанры -->
+	<section id="genres" class="main-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<h4 class="">Жанры</h4>
+				</div>
+			</div>
+
+
+			<div class="genres__row-main">
+				<div class="swiper slider small-slider">
+					<div class="slider__wrapper swiper-wrapper">
+						<!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр --><!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр -->
+
+						<!--! Жанр -->
+						<a class="slider__slide swiper-slide slide d-block mb-auto"
+							href="{% url 'movies:json_filter' %}?genre={{ genre.id }}">Триллеры</a>
+						<!--! /Жанр -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Русские новинки -->
+	<!-- <section class="main-section">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12 d-flex justify-content-between">
@@ -905,31 +1104,31 @@
 				</div>
 			</section> -->
 
-		</main>
-		<!--! /main -->
+	</main>
+	<!--! /main -->
 
-		<!--! footer -->
-		<footer class="footer">
-			<div class="container">
-				<div class="row text-center">
-					<div class="col-12">
-						<div class="footer__social-link">
-							<a href="">1</a>
-							<a href="">2</a>
-							<a href="">3</a>
-							<a href="">4</a>
-						</div>
-						<ul class="footer__navigation-link">
-							<li><a href="">Главная</a></li>
-							<li><a href="">Реклама</a></li>
-							<li><a href="">О разработчиках</a></li>
-						</ul>
-						<h4>© 2023 <a href="/">WebCinema</a> designed by Mihailuch</h4>
+	<!--! footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-12">
+					<div class="footer__social-link">
+						<a href="">1</a>
+						<a href="">2</a>
+						<a href="">3</a>
+						<a href="">4</a>
 					</div>
+					<ul class="footer__navigation-link">
+						<li><a href="">Главная</a></li>
+						<li><a href="">Реклама</a></li>
+						<li><a href="">О разработчиках</a></li>
+					</ul>
+					<h4>© 2023 <a href="/">WebCinema</a> designed by Mihailuch</h4>
 				</div>
 			</div>
-		</footer>
-		<!--! /footer -->
+		</div>
+	</footer>
+	<!--! /footer -->
 
 	</div>
 

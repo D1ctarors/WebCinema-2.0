@@ -52,45 +52,6 @@ function initBigSlider() {
     });
 }
 
-// function initSlidersGenres() {
-//   if (document.querySelector(".genres-slider"))
-//     new Swiper(".genres-slider", {
-//       slidesPerView: 6,
-//       spaceBetween: 24,
-//       // freeMode: true,
-//       preloadImages: true,
-//       navigation: {
-//         nextEl: ".genres-slider__btn-next",
-//         prevEl: ".genres-slider__btn-prev",
-//       },
-//       breakpoints: {
-//         320: {
-//           slidesPerView: 2.5,
-//           spaceBetween: 5,
-//         },
-//         530: {
-//           slidesPerView: 3,
-//           spaceBetween: 20,
-//         },
-//         768: {
-//           slidesPerView: 4,
-//         },
-//         992: {
-//           // slidesPerView: 1.4,
-//           spaceBetween: 20,
-//         },
-//         1268: {
-//           // slidesPerView: 1.7,
-//           spaceBetween: 24,
-//         },
-//         1550: {
-//           slidesPerView: 6,
-//           spaceBetween: 24,
-//         },
-//       },
-//     });
-// }
-
 function initMoviesSliders() {
   if (document.querySelector(".slider"))
     new Swiper(".slider", {
@@ -107,8 +68,47 @@ function initMoviesSliders() {
     });
 }
 
+function initSmallSlider() {
+  if (document.querySelector(".small-slider"))
+    new Swiper(".small-slider", {
+      slidesPerView: 6.3,
+      spaceBetween: 20,
+      // freeMode: true,
+      preloadImages: true,
+      navigation: {
+        nextEl: ".small-slider__btn-next",
+        prevEl: ".small-slider__btn-prev",
+      },
+      //   breakpoints: {
+      //     320: {
+      //       slidesPerView: 2.5,
+      //       spaceBetween: 5,
+      //     },
+      //     530: {
+      //       slidesPerView: 3,
+      //       spaceBetween: 20,
+      //     },
+      //     768: {
+      //       slidesPerView: 4,
+      //     },
+      //     992: {
+      //       // slidesPerView: 1.4,
+      //       spaceBetween: 20,
+      //     },
+      //     1268: {
+      //       // slidesPerView: 1.7,
+      //       spaceBetween: 24,
+      //     },
+      //     1550: {
+      //       slidesPerView: 6,
+      //       spaceBetween: 24,
+      //     },
+      //   },
+    });
+}
+
 window.addEventListener("load", function (e) {
   initBigSlider();
-  //   initSlidersGenres();
   initMoviesSliders();
+  initSmallSlider();
 });

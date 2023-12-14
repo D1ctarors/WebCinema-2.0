@@ -14,11 +14,11 @@ body {
 	background: #171717;
 	overflow-x: hidden;
 
-	::-webkit-scrollbar {
-		width: 0;
-		-ms-overflow-style: none;
-		overflow: -moz-scrollbars-none;
-	}
+	// ::-webkit-scrollbar {
+	// 	width: 0;
+	// 	-ms-overflow-style: none;
+	// 	overflow: -moz-scrollbars-none;
+	// }
 }
 
 .container-fluid {

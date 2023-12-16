@@ -1,0 +1,76 @@
+[
+	{
+		"id": 513668,
+		"fields": {
+			"title": "Убийцы цветочной луны",
+			"title_original": "Killers of the Flower Moon",
+			"description": "Вскоре после Первой мировой Эрнест Беркхарт, отслуживший во Франции поваром, приезжает искать удачи в Оклахому, где находится крупная резервация индейцев племени осейдж. В тех краях живет его дядя Уильям Хэйл, который носит прозвище Король — он землевладелец, скотопромышленник, друг индейцев и большой человек. Король убеждает Эрнеста посвататься к Молли Кайл, молодой женщине из зажиточной индейской семьи. Идея состоит в том, чтобы земельные права этой семьи со временем перешли к Беркхарту (читай к Хэйлу), а для этого всего лишь должны умереть мама Молли, её сёстры и она сама.",
+			"budget": "$200 000 000",
+			"premiere_ru": "2023-05-20",
+			"premiere_world": "2023-05-20",
+			"created_at": "2021-02-04T12:17:29.000000Z",
+			"updated_at": "2023-07-24T04:00:08.000000Z",
+			"url": "Killers of the Flower Moon",
+			"kinopoisk_id": 1077781,
+			"popular_weight": 149915,
+			"raitings_kp": 7.2,
+			"raitings_imdb": 8.1,
+			"year": "2023",
+			"year_start": "2022",
+			"year_end": "2022",
+			"time": "3:26",
+			"age_restriction": 15,
+			"category": 1,
+			"poster_big": "https://kinobd.net/storage/posters/images/b/a7a38dfb877b9d5f7f36a593ca595f0b.jpg",
+			"poster_small": "https://kinobd.net/storage/posters/images/s/a7a38dfb877b9d5f7f36a593ca595f0b.jpg",
+			"countries": [
+				"USA"
+			],
+			"trailer": "https://www.youtube.com/embed/PojyYA60inI",
+			"directors": ["Walter White"],
+			"actors": [
+				"Adam", "Agata"
+			],
+			"genres": [
+				"Камедия", "Семейный"
+			]
+		}
+	},
+	{
+		"id": 1231231,
+		"fields": {
+			"title": "Убийцы",
+			"title_original": "Killers of the Flower Moon",
+			"description": "Вскоре после Первой мировой Эрнест Беркхарт, отслуживший во Франции поваром, приезжает искать удачи в Оклахому, где находится крупная резервация индейцев племени осейдж. В тех краях живет его дядя Уильям Хэйл, который носит прозвище Король — он землевладелец, скотопромышленник, друг индейцев и большой человек. Король убеждает Эрнеста посвататься к Молли Кайл, молодой женщине из зажиточной индейской семьи. Идея состоит в том, чтобы земельные права этой семьи со временем перешли к Беркхарту (читай к Хэйлу), а для этого всего лишь должны умереть мама Молли, её сёстры и она сама.",
+			"budget": "$200 000 000",
+			"premiere_ru": "2023-05-20",
+			"premiere_world": "2023-05-20",
+			"created_at": "2021-02-04T12:17:29.000000Z",
+			"updated_at": "2023-07-24T04:00:08.000000Z",
+			"url": "Killers of the Flower Moon",
+			"kinopoisk_id": 1077781,
+			"popular_weight": 149915,
+			"raitings_kp": 7.2,
+			"raitings_imdb": 8.1,
+			"year": "2023",
+			"year_start": "2022",
+			"year_end": "2022",
+			"time": "3:26",
+			"age_restriction": 15,
+			"category": 1,
+			"poster_big": "https://kinobd.net/storage/posters/images/b/a7a38dfb877b9d5f7f36a593ca595f0b.jpg",
+			"poster_small": "https://kinobd.net/storage/posters/images/s/a7a38dfb877b9d5f7f36a593ca595f0b.jpg",
+			"countries": [
+				"USA"
+			],
+			"trailer": "https://www.youtube.com/embed/PojyYA60inI",
+			"directors": ["Walter White"],
+			"actors": [
+				"Adam", "Agata"
+			],
+			"genres": [
+				"Камедия", "Семейный"
+			]
+		}
+	}
+]

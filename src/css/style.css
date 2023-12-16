@@ -258,6 +258,11 @@ header {
 }
 .navbar__burger-menu {
   background: none;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
   -webkit-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
           transform: rotate(0deg);
@@ -265,36 +270,20 @@ header {
   transition: 0.25s ease-in-out;
   cursor: pointer;
 }
-.navbar__burger-menu span {
-  display: block;
-  height: 5px;
-  width: 100%;
-  background: #337AB7;
-  border-radius: 9px;
-  opacity: 1;
+.navbar__burger-menu img {
+  position: absolute;
+  top: 0;
   left: 0;
-  -webkit-transform: rotate(0deg);
-      -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-  -webkit-transition: 0.25s ease-in-out;
-  transition: 0.25s ease-in-out;
-  width: 35px;
-  height: 4px;
-  margin: 5px 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-.navbar__burger-menu.open span:nth-child(1) {
-  -webkit-transform: rotate(-45deg) translate(-7px, 6px);
-      -ms-transform: rotate(-45deg) translate(-7px, 6px);
-          transform: rotate(-45deg) translate(-7px, 6px);
-}
-.navbar__burger-menu.open span:nth-child(2) {
-  width: 0%;
+.navbar__burger-menu.open {
   opacity: 0;
-}
-.navbar__burger-menu.open span:nth-child(3) {
-  -webkit-transform: rotate(45deg) translate(-7px, -6px);
-      -ms-transform: rotate(45deg) translate(-7px, -6px);
-          transform: rotate(45deg) translate(-7px, -6px);
+  -webkit-transition: 0.01s ease-in-out;
+  transition: 0.01s ease-in-out;
+  visibility: hidden;
 }
 
 .burger-content {
@@ -312,10 +301,7 @@ header {
   border-radius: 15px;
   overflow: hidden;
   right: 0%;
-  top: 180%;
-  -webkit-transform: translate(0%, 0%);
-      -ms-transform: translate(0%, 0%);
-          transform: translate(0%, 0%);
+  top: 0%;
   background: #1d1d1f;
   width: auto;
   padding: 25px;
@@ -1431,6 +1417,36 @@ swiper-container {
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+.catalog__row > div a {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 25px 25px 88% 25px;
+  background: #1d1d1f;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 23px;
+  border-radius: 20px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.catalog__row > div a:hover {
+  -webkit-transform: scale(0.98);
+      -ms-transform: scale(0.98);
+          transform: scale(0.98);
+}
+.catalog__row > div a span {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 24px;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-decoration: none;
 }
 .full-screen {
   margin-top: -95px;

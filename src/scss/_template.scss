@@ -108,47 +108,30 @@ header {
 
 	&__burger-menu {
 		background: none;
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		overflow: hidden;
+		position: relative;
 		transform: rotate(0deg);
 		transition: .25s ease-in-out;
 		cursor: pointer;
 
-		span {
-			display: block;
-			height: 5px;
-			width: 100%;
-			background: #337AB7;
-			border-radius: 9px;
-			opacity: 1;
+		img {
+			position: absolute;
+			top: 0;
 			left: 0;
-			transform: rotate(0deg);
-			transition: .25s ease-in-out;
-			width: 35px;
-			height: 4px;
-			margin: 5px 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 
 		&.open {
-			span {
-				&:nth-child(1) {
-					transform: rotate(-45deg) translate(-7px, 6px);
-				}
-
-				&:nth-child(2) {
-					width: 0%;
-					opacity: 0;
-				}
-
-				&:nth-child(3) {
-					transform: rotate(45deg) translate(-7px, -6px);
-				}
-			}
+			opacity: 0;
+			transition: .01s ease-in-out;
+			visibility: hidden;
 		}
 	}
-
-
-
-
-
 }
 
 .burger-content {
@@ -161,8 +144,8 @@ header {
 	border-radius: 15px;
 	overflow: hidden;
 	right: 0%;
-	top: 180%;
-	transform: translate(0%, 0%);
+	top: 0%;
+	// transform: translate(0%, 0%);
 	background: #1d1d1f;
 	width: auto;
 	padding: 25px;
@@ -205,7 +188,6 @@ header {
 	&__item {}
 
 	&.show {
-
 		z-index: 2;
 		opacity: 1;
 		visibility: visible;

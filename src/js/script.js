@@ -3,14 +3,33 @@ window.addEventListener("DOMContentLoaded", () => {
   //! Показ бургера
   function showBurger() {
     let burgerBtn = document.querySelector(".navbar__burger-menu"),
-      burgerContent = document.querySelector(".burger-content");
+      burgerContent = document.querySelector(".burger-content"),
+      isMouseOverBurger = false;
 
-    burgerBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      burgerBtn.classList.toggle("open");
-      burgerContent.classList.toggle("show");
+    // При наведении на кнопку бургера
+    burgerBtn.addEventListener("mouseenter", () => {
+      isMouseOverBurger = true;
+      burgerBtn.classList.add("open");
+      burgerContent.classList.add("show");
+    });
+
+    // При уходе мыши из видимости бургер контента
+    burgerContent.addEventListener("mouseleave", () => {
+      isMouseOverBurger = false;
+      burgerBtn.classList.remove("open");
+      burgerContent.classList.remove("show");
+    });
+
+    // При уходе мыши из видимости кнопки бургера
+    burgerBtn.addEventListener("mouseleave", () => {
+      if (!isMouseOverBurger) {
+        burgerBtn.classList.remove("open");
+        burgerContent.classList.remove("show");
+      }
     });
   }
+
+  //! Создание блока с фильмом
   function createElement(data) {
     return `
     <a href="/film/${data.id}" class="col-2 slider__slide swiper-slide slide d-block mb-auto">
@@ -28,10 +47,12 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   }
 
+  //! Вставка фильмов из БД на страницу
   function insertBlock(sliderWrap, movieBlock) {
     sliderWrap.innerHTML += movieBlock;
   }
 
+  //! Получение данных из БД
   function getData() {
     let request = new XMLHttpRequest(),
       sliderWrap = document.querySelector("#incinema-slider-wrapper");
@@ -41,8 +62,8 @@ window.addEventListener("DOMContentLoaded", () => {
     request.send();
 
     request.addEventListener("readystatechange", function () {
-      if (request.readyState === 4 && request.status == 200) {
-        let data = JSON.parse(request.response);
+      if (this.readyState === 4 && this.status == 200) {
+        let data = JSON.parse(this.response);
 
         //! Вставка в html
         for (let i = 0; i < data.length; i++) {
@@ -55,11 +76,8 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  // Вставка топ-10
 
-  //   Вызов функций
+  //? Вызов функций
   showBurger();
   getData();
-
-  class Movie {}
 });

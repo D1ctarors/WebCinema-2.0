@@ -29,80 +29,6 @@
 </head>
 
 <body>
-	<!--! Элементы бургера -->
-	<!--<div class="offcanvas offcanvas-end offcanvas-top burger-content" tabindex="-1" id="offcanvasNavbar"
-		aria-labelledby="offcanvasNavbarLabel">
-		<div class="offcanvas-header offcanvas-end burger-content__header">
-			<h5></h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
-		</div>
-		<div class="offcanvas-body burger-content__body">
-			<ul class="navbar-nav justify-content-end flex-grow-1">
-
-				{% if user.is_authenticated %}
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="/profile.html">
-						<div class="burger-content__nickname-info">
-							<div class="burger-content__nickname">{{ user.username}}</div>
-							<div class="burger-content__profile-id">{{ user.email }}</div>
-						</div>
-						<div class="burger-content__image-profile">
-							{% if user.profile_picture %}
-							<img src="{{ user.profile_picture.url }}" alt="">
-							{% else %}
-							<img src="{% static '/vendor/img/default-profile.png' %}" alt="">
-							{% endif %}
-
-
-						</div>
-					</a>
-				</li>
-				{% for category in categories %}
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="{% url 'movies:json_filter' %}?category={{ category.id }}">
-						{{ category.name }}
-					</a>
-				</li>
-				{% endfor %}
-
-
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="#">Жанры</a>
-				</li>
-
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="{% url 'account_logout' %}">Выйти</a>
-				</li>
-
-				{% else %}
-				<li class="nav-item burger-content__item" style="display: flex" style="background-color: black">
-					<a class="nav-link" href="{% url 'account_login' %}"
-						style="width: 50%; display: flex; justify-content: center">
-						<div class="">Войти</div>
-					</a>
-					<a class="nav-link" href="{% url 'account_signup' %}"
-						style="width: 50%; display: flex; justify-content: center">
-						<div class="">Регистрация</div>
-					</a>
-				</li>
-				{% for category in categories %}
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="{% url 'movies:json_filter' %}?category={{ category.id }}">
-						{{ category.name }}
-					</a>
-				</li>
-				{% endfor %}
-				<li class="nav-item burger-content__item">
-					<a class="nav-link" href="#">Жанры</a>
-				</li>
-				{% endif %}
-			</ul>
-		</div>
-	</div> -->
-
-
-
-
 	<div class="wrapper">
 
 		<!--! header -->
@@ -132,9 +58,10 @@
 					<!--! Бургер -->
 					<div class="navbar__burger-menu-wrapper">
 						<button class="navbar__burger-menu" type="button">
+							<!-- <span></span>
 							<span></span>
-							<span></span>
-							<span></span>
+							<span></span> -->
+							<img src="/src/vendor/img/monkey.jpg" alt="">
 						</button>
 
 						<div class="burger-content">
@@ -152,14 +79,14 @@
 								</a>
 							</div>
 							<div class="burger-content__block">
-								<a href="#" class="burger-content__item burger-content-item">
+								<a href="/index.html" class="burger-content__item burger-content-item">
 									<div>
 										<div class="burger-content-item__link">
 											Главная
 										</div>
 									</div>
 								</a>
-								<a href="#" class="burger-content__item burger-content-item">
+								<a href="/catalog.html" class="burger-content__item burger-content-item">
 									<div>
 										<div class="burger-content-item__link">
 											Каталог
@@ -664,7 +591,7 @@
 					<div class="inCinema__row-main">
 						<div class="swiper slider" style="overflow: visible;">
 							<div id="incinema-slider-wrapper" class="slider__wrapper swiper-wrapper">
-								
+
 							</div>
 						</div>
 
@@ -891,66 +818,6 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- Русские новинки -->
-	<!-- <section class="main-section">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12 d-flex justify-content-between">
-							<h4>Русские новинки</h4>
-							<a href="{% url 'movies:json_filter' %}?category={{ 1 }}&year={{ 2023 }}" class="d-flex"
-								style="width: 10%; justify-content: end;"><i class="fa-solid fa-arrow-right fa-fade"
-									style="color: #ffffff; font-size: 20px;"></i></a>
-						</div>
-					</div>
-					<div class="popular-films__row-main">
-						<div class="swiper movies-slider" style="overflow: visible;">
-							<div class="swiper-wrapper movies-slider__wrapper ">
-								{% for movie in russian_new %}
-								<div class="col-2 mb-auto d-block swiper-slide" style="box-sizing: border-box;">
-									<a href="/movie/{{ movie.pk }}/" class="popular-films__item popular-film-slide">
-
-										{% if movie.poster_big == None %}
-										<img src="{% static '/vendor/img/default-film-big.png' %}" alt=""
-											class="w-100 img-fluid">
-										{% else %}
-										<img src="{{ movie.poster_big }}" alt="{{ movie.poster_big }}"
-											class="w-100 img-fluid">
-										{% endif %}
-
-										<div class="popular-films__raitings raitings">
-											{% if movie.raitings_kp == None %}
-											<div class="raitings__kp" style="display: none"></div>
-											{% else %}
-											<div class="raitings__kp">kp: {{ movie.raitings_kp }}</div>
-											{% endif %}
-
-											{% if movie.raitings_imdb == None %}
-											<div class="raitings__imdb" style="display: none"></div>
-											{% else %}
-											<div class="raitings__imdb">imdb: {{ movie.raitings_imdb }}</div>
-											{% endif %}
-										</div>
-										<div class="popular-films__body">
-											<div class="popular-films__title-film">{{ movie.title }}</div>
-											<div class="popular-films__years-film">{{ movie.year }} г.</div>
-											<div class="popular-films__country-film">
-												{% for country in movie.countries.all %}
-												{{ country.name }}
-												{% endfor %}
-											</div>
-										</div>
-									</a>
-								</div>
-								{% endfor %}
-							</div>
-						</div>
-
-
-					</div>
-
-				</div>
-			</section> -->
 
 	</main>
 	<!--! /main -->
